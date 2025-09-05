@@ -11,8 +11,14 @@ def binSearch(array, number):
         i += 1
     return 'not exists'
 
-arr = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
-n = int(input('Search for a number: '))
+while True:
+    try:
+        arr = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+        n = int(input('Search for a number: '))
 
-result = binSearch(arr,n)
-print('The element',result)
+        result = binSearch(arr,n)
+        print('The element',result,'\n')
+    except ValueError:
+        print('Only intenger number\n')
+
+# learned from https://www.geeksforgeeks.org/dsa/binary-search
