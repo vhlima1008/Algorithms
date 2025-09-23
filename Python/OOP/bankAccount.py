@@ -1,5 +1,4 @@
 class Client:
-
     def __init__(self, name, email, age):
         self.name = name
         self.email = email
@@ -8,12 +7,20 @@ class Client:
         self.extract = []
 
     def profile(self):
-        print('\nProfile:\n Name:',self.name,'\n','E-mail:',self.email,'\n','Age:',self.age,'\n','Balance:',self.account,'\n',)
+        print(
+            '\nProfile:\n Name:',self.name,
+            '\n','E-mail:',self.email,
+            '\n','Age:',self.age,
+            '\n','Balance:',self.account,
+            '\n',)
 
     def deposit(self, value):
-        self.value = value
+        if value <= 0:
+            print(f'Deposite must be positive. Provided: {value}')
+            self.extract.append(f'Deposit REFUSED: ${value}')
+            return
         self.account += value
-        self.extract.append(f'Deposited: {value}')
+        self.extract.append(f'Deposited: ${value}')
 
     def withdraw(self, value):
         self.value = value
@@ -60,5 +67,5 @@ while True:
             print('Invalid!')
         
 
-    except ValueError:
-        print('Ops! Wrong value.')
+if __name__ == "__main__":
+    main()
