@@ -23,7 +23,10 @@ class Client:
         self.extract.append(f'Deposited: ${value}')
 
     def withdraw(self, value):
-        self.value = value
+        if value <= 0:
+            print(f'Withdraw must be positive. Provided: {value}')
+            self.extract.append(f'Withdraw REFUSED: ${value}')
+            return
         if float(self.account) - float(value) >= 0:
             self.account -= value
             self.extract.append(f'Withdrawed: {value}')
