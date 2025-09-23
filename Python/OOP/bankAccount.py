@@ -38,6 +38,10 @@ class Client:
         print('BALANCE:',self.account,'\n')
     
     def extractAcc(self):
+        if not self.extract:
+            print('No account activities yet.\n')
+            return
+        print('\nAccount Statement:')
         for i in self.extract:
             print(i)
 
