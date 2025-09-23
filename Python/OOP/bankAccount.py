@@ -43,36 +43,39 @@ class Client:
             return
         print('\nAccount Statement:')
         for i in self.extract:
-            print(i)
+            print(' - ',i)
 
-    
-client_1 = Client('Victor', 'vhlima1008@gmail.com', 19)
+def main():
+    client_1 = Client('Victor', 'vhlima1008@gmail.com', 19)
 
 
-while True:
-    try:
-        print('\n',f'Hi, {client_1.name}!','\n\n','1 - Profile','\n','2 - Deposit','\n','3 - Withdraw','\n','4 - Balance','\n','5 - Extract','\n','6 - Exit','\n')
-        service = int(input('Service: '))
+    while True:
+        try:
+            print('\n',f'Hi, {client_1.name}!','\n\n','1 - Profile','\n','2 - Deposit','\n','3 - Withdraw','\n','4 - Balance','\n','5 - Extract','\n','6 - Exit','\n')
+            service = int(input('Service: '))
 
-        if service == 1:
-            client_1.profile()
-        elif service == 2:
-            print()
-            value = float(input(f'Desposit a value {client_1.name}: '))
-            client_1.deposit(value)
-        elif service == 3:
-            print()
-            value = float(input(f'Withdraw a value {client_1.name}: '))
-            client_1.withdraw(value)
-        elif service == 4:
-            client_1.balance()
-        elif service == 5:
-            client_1.extractAcc()
-        elif service == 6:
-            break
-        else: 
-            print('Invalid!')
-        
+            if service == 1:
+                client_1.profile()
+            elif service == 2:
+                print()
+                value = float(input(f'Desposit a value {client_1.name}: '))
+                client_1.deposit(value)
+            elif service == 3:
+                print()
+                value = float(input(f'Withdraw a value {client_1.name}: '))
+                client_1.withdraw(value)
+            elif service == 4:
+                client_1.balance()
+            elif service == 5:
+                client_1.extractAcc()
+            elif service == 6:
+                break
+            else: 
+                print('Invalid!')
+            
+
+        except ValueError:
+            print('Ops! Wrong value.')
 
 if __name__ == "__main__":
     main()
