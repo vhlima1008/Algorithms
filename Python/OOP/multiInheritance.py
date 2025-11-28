@@ -24,3 +24,8 @@ hp.print()
 hp.scan()
 
 hp.conect()
+
+print()
+
+for cls in Multifunctional.mro():
+    print(cls.__name__)
