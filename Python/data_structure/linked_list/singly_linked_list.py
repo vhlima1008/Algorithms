@@ -3,7 +3,7 @@ class Node:
         self.data = data
         self.next = next
     
-class LinkedList:
+class SinglyLinkedList:
     def __init__(self):
         self.head = None
         
@@ -106,7 +106,7 @@ class LinkedList:
         self.remove_at(index)
         
 if __name__ == '__main__':
-    ll = LinkedList()
+    ll = SinglyLinkedList()
     ll.insert_at_begining(1)
     ll.insert_at_end(2)
     ll.insert_at_begining(3)
@@ -121,4 +121,3 @@ if __name__ == '__main__':
     n = 8
     print(f'searched value: {n} position:',ll.search_for(n))
     print('length:',ll.lenght())
-
