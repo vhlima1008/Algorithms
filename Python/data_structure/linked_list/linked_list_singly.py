@@ -13,23 +13,35 @@ class LinkedList:
         self.head = temp
         
     def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(data)
+            return
+
         temp = self.head
-        while temp:
-            if temp.next is None:
-                temp.next = Node(data)
-                break
+        while temp.next:
             temp = temp.next
+        temp.next = Node(data)
     
     def insert_at(self, data, position):
         pass
             
     def delete_from_begining(self):
         if self.head is None:
-            raise Exception('underflow condition')
+            return 'underflow condition'
+        
         self.head = self.head.next
     
     def delete_from_end(self):
-        pass
+        if self.head is None:
+            return 'underflow condition'
+        if self.head.next is None:
+            self.head = None
+            return
+        
+        temp = self.head
+        while temp.next and temp.next.next:
+            temp = temp.next
+        temp.next = None
         
     def delete_from(self, position):
         pass
