@@ -1,123 +1,158 @@
 class Node:
-    def __init__(self, data = None, next = None):
+    def __init__(self, data):
         self.data = data
-        self.next = next
-    
-class SinglyLinkedList:
+        self.next: Node | None = None
+        
+class LinkedList:
     def __init__(self):
         self.head = None
-        
+    
     def insert_at_begining(self, data):
-        node = Node(data, self.head)
-        self.head = node
+        temp = Node(data)
+        temp.next = self.head
+        self.head = temp
         
     def insert_at_end(self, data):
         if self.head is None:
+            self.head = Node(data)
+            return
+
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = Node(data)
+    
+    def insert_at(self, data, position):
+        if position < 0 or position > self.count_nodes():
+            return f'out of touch'
+        if position == 0:
             self.insert_at_begining(data)
             return
         
-        idx = self.head
-        while idx.next:
-            idx = idx.next
-        idx.next = Node(data, None)
-        
-    def insert_values(self, data_list):
-        for data in data_list:
-            self.insert_at_end(data)
-        
-        
-    def show(self):
-        if self.head is None:
-            return 'linked list is empty'
-
-        idx = self.head
-        stringfy = ''
-        while idx:
-            arrow = ' -> '
-            if idx.next is None:
-                arrow = f' -> {idx.next}'
-            stringfy += str(idx.data) + arrow
-            idx = idx.next
-        return stringfy
-    
-    def lenght(self):
-        idx = self.head
         count = 0
-        while idx:
-            idx = idx.next
-            count += 1
-        return count
-    
-    def remove_at(self, index):
-        if index < 0 or index > self.lenght():
-            return f'invalid index: {index}'
-        if index == 0:
-            self.head = self.head.next # type: ignore
-            return
-        
-        count = 0
-        idx = self.head
-        while idx:
-            if count == index - 1:
-                idx.next = idx.next.next  # type: ignore
+        temp = self.head
+        while temp:
+            if count == position - 1:
+                node = Node(data)
+                node.next = temp.next
+                temp.next = node
                 break
-            idx = idx.next
+            temp = temp.next
             count += 1
             
-    def insert_at(self, index, data):
-        if index < 0 or index > self.lenght():
-            return f'invalid index: {index}'
-        if index == 0:
-            self.insert_at_begining(data)
+    def delete_from_begining(self):
+        if self.head is None:
+            return 'underflow condition'
+        
+        self.head = self.head.next
+    
+    def delete_from_end(self):
+        if self.head is None:
+            return 'underflow condition'
+        if self.head.next is None:
+            self.head = None
+            return
+        
+        temp = self.head
+        while temp.next and temp.next.next:
+            temp = temp.next
+        temp.next = None
+        
+    def delete_from(self, position):
+        if position < 0 or position > self.count_nodes():
+            return f'out of touch'
+        if position == 0:
+            self.delete_from_begining()
             return
         
         count = 0
-        idx = self.head
-        while idx:
-            if count == index - 1:
-                node = Node(data, idx.next)
-                idx.next = node
+        temp = self.head
+        while temp:
+            if count == position - 1:
+                temp.next = temp.next.next  # type: ignore
                 break
-            idx = idx.next
-            count += 1                
+            temp = temp.next
+            count += 1
     
     def search_for(self, data):
+        temp = self.head
+        while temp:
+            if temp.data == data:
+                return True
+            temp = temp.next
+        return False
+
+    def count_nodes(self):
         count = 0
-        idx = self.head
-        while idx:
-            if idx.data == data:
-                return count
-            idx = idx.next
+        temp = self.head
+        while temp:
             count += 1
-        return -1
+            temp = temp.next
+        return count
     
-    def insert_after_value(self, value, value_after):
-        idx = self.head
-        while idx:
-            if idx.data == value:
-                node = Node(value_after, idx.next)
-                idx.next = node
-                return
-            idx = idx.next
-        return 'not found data before'
-    
-    def remove_by_value(self, data):
-        index = self.search_for(data)
-        self.remove_at(index)
+    def update_at(self, data, position):
+        if self.head is None:
+            return 'underflow condition'
+        if position < 0 or position > self.count_nodes() - 1:
+            return 'out of range'
         
-if __name__ == '__main__':
-    ll = SinglyLinkedList()
-    ll.insert_at_begining(1)
-    ll.insert_at_end(2)
-    ll.insert_at_begining(3)
-    ll.insert_values([4,5,6,7])
-    ll.remove_at(0)
-    ll.insert_at(1, 8)
-    ll.insert_after_value(8,9)
-    ll.remove_by_value(9)
+        count = 0
+        temp = self.head
+        while temp:
+            if position == count:
+                temp.data = data
+                return
+            count += 1
+            temp = temp.next
     
-    print('linked list:',ll.show())
+    def revert(self):
+        if self.head is None:
+            return 'underflow condition'
+        curr = self.head
+        prev = None
+        while curr:
+            node = curr.next
+            curr.next = prev # type: ignore
+            prev = curr
+            curr = node
+        self.head = prev
     
-    n = 8
-    print(f'searched value: {n} position:',ll.search_for(n))
-    print('length:',ll.lenght())
+    def transverse(self):
+        if self.head is None:
+            return 'underflow condition'
+        temp = self.head
+        stringfy = ''
+        while temp:
+            arrow = ' -> '
+            if temp.next is None:
+                arrow = ''
+            stringfy += str(temp.data) + arrow
+            temp = temp.next
+        return stringfy
+            
+linked_list = LinkedList()
+linked_list.insert_at_begining('begining A')
+linked_list.insert_at_begining('begining B')
+linked_list.insert_at_begining('Begining C')
+linked_list.insert_at_end('end D')
+linked_list.insert_at_end('end E')
+linked_list.insert_at_end('end F')
+linked_list.delete_from_begining()
+linked_list.delete_from_end()
+linked_list.delete_from_end()
+linked_list.delete_from_end()
+linked_list.update_at('update G', 2)
+linked_list.delete_from(1)
+linked_list.insert_at('insert H', 1)
+linked_list.insert_at('insert I', 0)
+linked_list.insert_at('insert J', 1)
+linked_list.revert()
+
+
+print('linked list:',linked_list.transverse())
+print('size:',linked_list.count_nodes())
+searched_value = 'insert H'
+found_result = f'searched for "{searched_value}": not found'
+if linked_list.search_for(searched_value):
+    found_result = f'searched for "{searched_value}": found'    
+print(found_result)
