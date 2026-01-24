@@ -151,8 +151,8 @@ linked_list.revert()
 
 print('linked list:',linked_list.transverse())
 print('size:',linked_list.count_nodes())
-searched_value = 'a'
-found_result = 'not found'
+searched_value = 'insert H'
+found_result = f'searched for "{searched_value}": not found'
 if linked_list.search_for(searched_value):
-    found_result = f'found: {searched_value}'    
+    found_result = f'searched for "{searched_value}": found'    
 print(found_result)
