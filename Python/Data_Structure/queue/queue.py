@@ -18,7 +18,7 @@ class Queue:
     
     def dequeue(self):
         if self.front is None:
-            raise Exception("underflow condition")
+            return "underflow condition"
         temp = self.front
         self.front = self.front.next
         if self.front is None:
@@ -29,10 +29,10 @@ class Queue:
     
     def peek(self):
         if self.front is None:
-            raise Exception("underflow condition")
+            return "underflow condition"
         return self.front.data
     
-    def show(self):
+    def transverse(self):
         temp = self.front
         stringfy = ''
         while temp:
@@ -44,11 +44,33 @@ class Queue:
         return stringfy
     
 queue = Queue()
-queue.enqueue('a')
-queue.enqueue('b')
-queue.enqueue('c')
-queue.enqueue('d')
-queue.dequeue()
 
-print(queue.show())
-print('peek:',queue.peek())
+print('(front/exit)',queue.transverse(),'(rear/entrance)','\n')
+print('peek (first element):',queue.peek())
+print()
+
+queue.enqueue('A')
+queue.enqueue('B')
+queue.enqueue('C')
+queue.enqueue('D')
+queue.enqueue('E')
+queue.enqueue('F')
+print('Added:','A')
+print('Added:','B')
+print('Added:','C')
+print('Added:','D')
+print('Added:','E')
+print('Added:','F')
+print()
+
+print('(front/exit)',queue.transverse(),'(rear/entrance)','\n')
+print('peek (first element):',queue.peek())
+print()
+
+print('Removed:',queue.dequeue())
+print('Removed:',queue.dequeue())
+print('Removed:',queue.dequeue())
+print()
+
+print('(front/exit)',queue.transverse(),'(rear/entrance)','\n')
+print('peek (first element):',queue.peek())
