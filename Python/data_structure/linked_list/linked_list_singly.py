@@ -23,7 +23,22 @@ class LinkedList:
         temp.next = Node(data)
     
     def insert_at(self, data, position):
-        pass
+        if position < 0 or position > self.count_nodes():
+            return f'out of touch'
+        if position == 0:
+            self.insert_at_begining(data)
+            return
+        
+        count = 0
+        temp = self.head
+        while temp:
+            if count == position - 1:
+                node = Node(data)
+                node.next = temp.next
+                temp.next = node
+                break
+            temp = temp.next
+            count += 1
             
     def delete_from_begining(self):
         if self.head is None:
@@ -44,21 +59,65 @@ class LinkedList:
         temp.next = None
         
     def delete_from(self, position):
-        pass
+        if position < 0 or position > self.count_nodes():
+            return f'out of touch'
+        if position == 0:
+            self.delete_from_begining()
+            return
+        
+        count = 0
+        temp = self.head
+        while temp:
+            if count == position - 1:
+                temp.next = temp.next.next  # type: ignore
+                break
+            temp = temp.next
+            count += 1
     
     def search_for(self, data):
-        pass
+        temp = self.head
+        while temp:
+            if temp.data == data:
+                return True
+            temp = temp.next
+        return False
+
+    def count_nodes(self):
+        count = 0
+        temp = self.head
+        while temp:
+            count += 1
+            temp = temp.next
+        return count
     
     def update_at(self, data, position):
-        pass
-
-    def transverse(self):
-        pass
+        if self.head is None:
+            return 'underflow condition'
+        if position < 0 or position > self.count_nodes() - 1:
+            return 'out of range'
+        
+        count = 0
+        temp = self.head
+        while temp:
+            if position == count:
+                temp.data = data
+                return
+            count += 1
+            temp = temp.next
     
     def revert(self):
-        pass
+        if self.head is None:
+            return 'underflow condition'
+        curr = self.head
+        prev = None
+        while curr:
+            node = curr.next
+            curr.next = prev # type: ignore
+            prev = curr
+            curr = node
+        self.head = prev
     
-    def show(self):
+    def transverse(self):
         if self.head is None:
             return 'underflow condition'
         temp = self.head
@@ -72,12 +131,28 @@ class LinkedList:
         return stringfy
             
 linked_list = LinkedList()
-linked_list.insert_at_begining('a')
-linked_list.insert_at_begining('b')
-linked_list.insert_at_begining('c')
-linked_list.insert_at_end('d')
-linked_list.insert_at_end('e')
-linked_list.insert_at_end('f')
+linked_list.insert_at_begining('begining A')
+linked_list.insert_at_begining('begining B')
+linked_list.insert_at_begining('Begining C')
+linked_list.insert_at_end('end D')
+linked_list.insert_at_end('end E')
+linked_list.insert_at_end('end F')
+linked_list.delete_from_begining()
+linked_list.delete_from_end()
+linked_list.delete_from_end()
+linked_list.delete_from_end()
+linked_list.update_at('update G', 2)
+linked_list.delete_from(1)
+linked_list.insert_at('insert H', 1)
+linked_list.insert_at('insert I', 0)
+linked_list.insert_at('insert J', 1)
+linked_list.revert()
 
-print(linked_list.show())
-        
+
+print('linked list:',linked_list.transverse())
+print('size:',linked_list.count_nodes())
+searched_value = 'a'
+found_result = 'not found'
+if linked_list.search_for(searched_value):
+    found_result = f'found: {searched_value}'    
+print(found_result)
