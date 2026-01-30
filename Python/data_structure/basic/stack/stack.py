@@ -34,7 +34,7 @@ class Stack:
             count += 1
         return count
             
-    def show(self):
+    def transverse(self):
         if self.top is None:
             raise Exception("underflow condition")
         temp = self.top
@@ -54,5 +54,5 @@ stack.push("c")
 stack.push("d")
 stack.pop()
 
-print(stack.show())
+print(stack.transverse())
 print('peek:',stack.peek())
